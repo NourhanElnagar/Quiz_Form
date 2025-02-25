@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examination System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Home Page -->
+        <div class="home-page active">
+            <h1 class="Pacifico-font">Animal Quiz</h1>
+            <div class="nameInput-group">
+                <input type="text" id="studentName" placeholder="Enter your full Name (e.g., John Smith)">
+            </div>
+            <button class="btn" id="startBtn" disabled>Start Exam</button>
+        </div>
+
+        <!-- Quiz Page -->
+        <div class="quiz-page">
+            <div class="timer-display">Time left: <span id="timeDisplay">60</span>s</div>
+            <div class="timer-bar">
+                <div class="timer-progress"></div>
+            </div>
+            <h2 class="question-number Pacifico-font">Question <span id="questionNumber">1</span></h2>
+            <div id="questionContainer">
+                <h3 class="question-title Pacifico-font" id="questionTitle"></h3>
+                <div class="image-container">
+                <img id="questionImage" class="question-image" src="" alt="Question Image">
+                </div>
+                <div id="answersContainer"></div>
+            </div>
+            <button class="btn" id="nextBtn" disabled>Next</button>
+        </div>
+
+        <!-- Result Page -->
+        <div class="result-page">
+            <div class="result-circle">
+                <svg width="200" height="200">
+                    <circle class="background" cx="100" cy="100" r="90"/>
+                    <circle class="progress" cx="100" cy="100" r="90"/>
+                </svg>
+                <div class="result-text">0%</div>
+            </div>
+            <p class="result-summary">
+                You have <span id="correctAnswers">0</span> out of <span id="totalQuestions">0</span> correct answers
+            </p>
+
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
