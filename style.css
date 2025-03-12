@@ -59,6 +59,7 @@ input[type="text"] {
 }
 
 .btn:disabled {
+    
     background: #cccccc;
     cursor: not-allowed;
 }
@@ -180,4 +181,28 @@ input[type="text"] {
 }
 p{
     text-align: center; 
+}
+.student-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #007bff;
+    margin-top: 15px;
+}
+#retryButton {
+    display: block;
+    margin: 20px auto;  
+    padding: 12px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#retryButton:hover {
+    background: #0056b3;
+    transform: scale(1.05);
 }

@@ -4,7 +4,7 @@ class Question {
         this.title = title;
         this.image = image;
         this.answers = answers;
-        this.correctAnswer = correctAnswer; 
+        this.correctAnswer = correctAnswer;
     }
 
     isCorrectAnswer(selectedAnswer) {
@@ -13,7 +13,7 @@ class Question {
 }
 
 // Array of Questions  
-const questions = [  
+const questions = [
     new Question("Which animal is this?", "/image/1.jpg", ["Cat", "Dog", "Rabbit"], "Dog"),
     new Question("Which animal is this?", "/image/2.jpg", ["Cat", "Dog", "Rabbit"], "Cat"),
     new Question("Which animal is this?", "/image/3.jpg", ["Lion", "Tiger", "Cheetah"], "Lion"),
@@ -71,44 +71,48 @@ function shuffleArray(array) {
 
 // Validate student name
 function validateStudentName(name) {
-    // Check for minimum length
-    if (name.trim().length < 3) {
-        return {
-            valid: false,
-            message: "Name must be at least 3 characters long"
-        };
-    }
-    
+
+    const trimmedName = name.trim();
     // Check for maximum length
-    if (name.trim().length > 50) {
+    if (trimmedName.length > 50) {
         return {
             valid: false,
             message: "Name must be less than 50 characters"
         };
     }
-    
+
     // Check for letters only (allowing spaces)
-    if (!/^[A-Za-z\s]+$/.test(name.trim())) {
+    if (!/^[A-Za-z\s]+$/.test(trimmedName)) {
         return {
             valid: false,
             message: "Name must contain only letters"
         };
     }
-    
+
     // Ensure name has at least two parts
-    const nameParts = name.trim().split(/\s+/);
+    const nameParts = trimmedName.split(/\s+/);
     if (nameParts.length < 2) {
         return {
             valid: false,
             message: "Please enter your full name (first and last name)"
         };
     }
-    
+
+    // Check that each part of the name is at least 3 characters long
+    if (nameParts.some(part => part.length < 3)) {
+        return {
+            valid: false,
+            message: "Each part of the name must be at least 3 characters long"
+        };
+    }
+
+
     return {
         valid: true,
         message: ""
     };
 }
+
 
 // Initialize exam function
 function initExam() {
@@ -153,7 +157,7 @@ function showQuestion() {
         const button = document.createElement('button');
         button.className = 'answer-btn fancy-font';
         button.textContent = answer;
-        button.onclick = () => selectAnswer(answer); 
+        button.onclick = () => selectAnswer(answer);
         answersContainer.appendChild(button);
     });
 
@@ -204,18 +208,35 @@ function showResults() {
     document.getElementById('correctAnswers').textContent = correctAnswers;
     document.getElementById('totalQuestions').textContent = totalQuestions;
 
-    // Show student name in results if available
+    //Show student name in results
     const studentNameElement = document.getElementById('resultStudentName');
     if (studentNameElement) {
-        studentNameElement.textContent = studentName;
+        studentNameElement.textContent = studentName ? studentName : "Unknown"; 
     }
+
+    //Show motivational message
+    const messageElement = document.querySelector('.result-message');
+    if (percentage >= 80) {
+        messageElement.textContent = "Excellent job 👏  🎉";
+    } else if (percentage >= 50) {
+        messageElement.textContent = "Good effort, Keep practicing. 💪";
+    } else {
+        messageElement.textContent = "Don't worry, Try again. 💪";
+    }
+
+    //Show retry button
+    const retryButton = document.getElementById('retryButton');
+    retryButton.addEventListener('click', () => {
+        location.reload(); 
+    });
 }
 
-// Listen for input in name field and validate
+
+// AddEventListener for input in name field and validate
 studentNameInput.addEventListener('input', () => {
     const name = studentNameInput.value;
     const validation = validateStudentName(name);
-    
+
     if (validation.valid) {
         startBtn.disabled = false;
         nameErrorMessage.style.display = 'none';
@@ -234,7 +255,7 @@ studentNameInput.addEventListener('input', () => {
 startBtn.addEventListener('click', () => {
     const name = studentNameInput.value;
     const validation = validateStudentName(name);
-    
+
     if (validation.valid) {
         homePage.classList.remove('active');
         quizPage.classList.add('active');
